@@ -87,11 +87,11 @@ std::vector<int> largestPathSum(Node* root) {
 
 int main() {
 	/*
-		  1
-		/   \
-	   3	 2
-	  	\	/ 
-		 5 4		 
+	       1
+	    /    \
+	   3      2
+	    \    / 
+	     5  4 
 	*/
 	Node treeA(1);
 	treeA.left = new Node(3);
@@ -105,10 +105,10 @@ int main() {
 
 
 	/*
-		  1
-		/   \
-	   2	 3
-	  /		/ \
+	      1
+	    /   \
+	   2     3
+	  /     / \
 	 4     6   7
 	            \
 	             8
@@ -127,10 +127,10 @@ int main() {
 
 
 	/*
-		  1
-		/   \
-	   2	 3
-	  /	\	/ \
+	      1
+	    /   \
+	   2     3
+	  / \   / \
 	 4  20 6   7
 	            \
 	             8
