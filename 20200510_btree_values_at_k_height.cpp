@@ -44,7 +44,7 @@ public:
 	Node(int v): val(v), left(nullptr), right(nullptr) {};
 };
 
-std::vector<int> bstValuesAtHeight(Node* root, int h) {
+std::vector<int> btreeValuesAtHeight(Node* root, int h) {
 	std::vector<int> v;
 	if (!root || h < 1) return v;
 	
@@ -80,11 +80,11 @@ int main() {
 	a->left->right = new Node(5);
 	a->right->right = new Node(7);
 
-	for (int i: bstValuesAtHeight(a, 3))
+	for (int i: btreeValuesAtHeight(a, 3))
 		std::cout << i << " ";
 	std::cout << "\n"; // 4 5 7
 
-	for (int i: bstValuesAtHeight(a, 2))
+	for (int i: btreeValuesAtHeight(a, 2))
 		std::cout << i << " ";
 	std::cout << "\n"; // 2 3
 
@@ -108,7 +108,7 @@ int main() {
 	b->left->right->right = new Node(9);
 	b->right->right->left = new Node(10);
 
-	for (int i: bstValuesAtHeight(b, 4))
+	for (int i: btreeValuesAtHeight(b, 4))
 		std::cout << i << " ";
 	std::cout << "\n"; // 8 9 10
 
