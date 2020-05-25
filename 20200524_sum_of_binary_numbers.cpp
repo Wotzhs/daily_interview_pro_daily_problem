@@ -22,28 +22,21 @@ print(sum_binary("11101", "1011"))
 */
 
 string sumBinary(string bin1, string bin2) {
+	int i=bin1.size()-1, j=bin2.size()-1, bal=0;
+
 	stringstream ss;
-
-	if (bin1.size() < bin2.size()) swap(bin1, bin2);
-	reverse(bin1.begin(), bin1.end());
-	reverse(bin2.begin(), bin2.end());
-
-	bool carryOver = false;
-	for (int i=0; i < bin2.size(); i++) {
-		int curr = bin1[i]-'0' ^ bin2[i]-'0';
-		if (carryOver) curr ^= 1;
-		if (curr == 0) carryOver = true;
-		ss << curr;
+	while(i>=0 || j>=0) {
+		int sum=0;
+		sum += i >= 0 ? bin1[i]-'0' : 0;
+		sum += j >= 0 ? bin2[j]-'0' : 0;
+		sum += bal;
+		bal = sum / 2;
+		ss << sum % 2;
+		i--;
+		j--;
 	}
 
-	for (int i=bin2.size(); i < bin1.size(); i++) {
-		int curr = bin1[i]-'0';
-		if (carryOver) curr ^= 1;
-		if (curr == 0) carryOver = true;
-		ss << curr;
-	}
-
-	if (carryOver) ss << 1;
+	if (bal) ss << bal;
 
 	string ans = ss.str();
 	reverse(ans.begin(), ans.end());
@@ -54,5 +47,9 @@ string sumBinary(string bin1, string bin2) {
 int main(){
 	cout << sumBinary("11101", "1011") << "\n"; // 101000
 	cout << sumBinary("11", "1") << "\n"; // 100
+	cout << sumBinary("10", "1") << "\n"; // 11
+	cout << sumBinary("100", "1") << "\n"; // 101
+	cout << sumBinary("10001", "1") << "\n"; // 10010
+	cout << sumBinary("10111", "1") << "\n"; // 11000
 	return 0;
 }
