@@ -20,24 +20,23 @@ def multiply(str1, str2):
 print(multiply("11", "13"))
 # 143
 
-
 */
 
 // credit: https://www.geeksforgeeks.org/multiply-large-numbers-represented-as-strings/
 string multiply(string a, string b) {
 	vector<int> v(a.size()+b.size());
 
-    for (int i=a.size()-1; i>=0; i--) { 
-        int carryOver = 0; 
-        for (int j=b.size()-1; j>=0; j--) {
-        	int currIdx = a.size()-1-i+b.size()-1-j;
-            int tmp = (a[i]-'0') * (b[j]-'0') + v[currIdx] + carryOver; 
-            carryOver = tmp/10;
-            v[currIdx] = tmp%10; 
-        } 
+	for (int i=a.size()-1; i>=0; i--) { 
+		int carryOver = 0; 
+		for (int j=b.size()-1; j>=0; j--) {
+			int currIdx = a.size()-1-i+b.size()-1-j;
+			int tmp = (a[i]-'0') * (b[j]-'0') + v[currIdx] + carryOver; 
+			carryOver = tmp/10;
+			v[currIdx] = tmp%10; 
+		} 
 
-        v[a.size()-1-i+b.size()] += carryOver;
-    } 
+		v[a.size()-1-i+b.size()] += carryOver;
+	} 
 
 	while(v.back() == 0) v.pop_back();
 
