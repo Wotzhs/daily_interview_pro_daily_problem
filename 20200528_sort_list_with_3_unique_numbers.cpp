@@ -28,12 +28,15 @@ Challenge: Try sorting the list using constant space.
 	---------------------------
 	o(n) time complexity
 		list traversal o(n)
+		get n1, n2, n3 o(1)
+		find min, lo, max o(1)
 		build new list o(n)
+		o(n+1+1+n) = o(2+2n) ≈ o(n)
 
 	o(1) space complexity
 		unordered_map max entries = o(3)
 		space used in finding min, mid, max = o(3)
-		o(3) ≈ o(1)
+		o(3+3) = o(6) ≈ o(1)
 */
 vector<int> sortNums(vector<int> v) {
 	unordered_map<int, int> mp;
