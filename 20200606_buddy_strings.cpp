@@ -51,7 +51,7 @@ bool buddyStrings(string A, string B) {
 	int first=-1, second=-1;
 	for (int i=0; i<A.size(); i++) {
 		if (A[i] == B[i]) continue;
-		if (first >= 0 && second >= first) {
+		if (first >= 0 && second > first) {
 			return A[first] == B[second] && A[second] == B[first];
 		}
 		if (first < 0) first = i;
