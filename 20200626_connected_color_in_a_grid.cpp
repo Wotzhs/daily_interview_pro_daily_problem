@@ -88,30 +88,30 @@ int main() {
 		{1, 0, 0, 1},
 		{1, 1, 1, 1},
 		{0, 1, 0, 0},
-    }).maxConnectedColors() << "\n"; // 7
+	}).maxConnectedColors() << "\n"; // 7
 
-    cout << Grid({ 
+	cout << Grid({ 
 		{1, 0, 0, 1},
 		{1, 1, 0, 1},
 		{0, 1, 0, 0},
-    }).maxConnectedColors() << "\n"; // 5
+	}).maxConnectedColors() << "\n"; // 5
 
 	cout << Grid({ 
 		{1, 0, 1, 0},
 		{0, 1, 0, 1},
 		{1, 0, 1, 0},
-    }).maxConnectedColors() << "\n"; // 1
+	}).maxConnectedColors() << "\n"; // 1
 
-    cout << Grid({ 
+	cout << Grid({ 
 		{1, 1, 1, 1},
 		{1, 1, 1, 1},
 		{1, 1, 1, 1},
-    }).maxConnectedColors() << "\n"; // 12
+	}).maxConnectedColors() << "\n"; // 12
 
-    cout << Grid({ 
+	cout << Grid({ 
 		{1, 0, 4, 2},
 		{4, 4, 4, 2},
 		{6, 3, 5, 2},
-    }).maxConnectedColors() << "\n"; // 4
+	}).maxConnectedColors() << "\n"; // 4
 	return 0;
 }
