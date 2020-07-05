@@ -39,8 +39,8 @@ int numWays(int n, int m) {
 
 int main(){
 	cout << numWays(2,2) << "\n"; // 2
-	cout << numWays(3,3) << "\n"; // 5
+	cout << numWays(3,3) << "\n"; // 6
 	cout << numWays(4,4) << "\n"; // 20
-	
+
 	return 0;
 }
