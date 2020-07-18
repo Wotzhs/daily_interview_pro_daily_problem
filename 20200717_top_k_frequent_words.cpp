@@ -72,9 +72,7 @@ void print(vector<pair<string, int>> ans) {
 
 int main(){
 	print(topKFrequent({"daily","interview","pro","pro","for","daily","pro","problems"}, 2)); // ['pro', 'daily']
-	print(topKFrequent({"daily","interview","pro","for","daily","pro","problems"}, 2)); // ['pro', 'daily']
-	print(topKFrequent({"daily","interview","pro","for","daily","pro","problems"}, 3)); // ['pro', 'daily']
+	print(topKFrequent({"daily","interview","pro","for","daily","pro","problems"}, 2)); // [daily, pro, for, interview, problems]
+	print(topKFrequent({"daily","interview","pro","for","daily","pro","problems"}, 3)); // [daily, pro, for, interview, problems]
 	return 0;
-
-	// {"daily","daily","pro","pro", "problems", "problems", "abc"}
 }
