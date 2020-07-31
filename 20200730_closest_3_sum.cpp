@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <climits>
-#include <string.h>
 using namespace std;
 
 /*
@@ -23,31 +21,26 @@ print(closest_3sum([2, 1, -5, 4], -1))
 */
 
 // TC = o(n^2)
-// SC = o(n^2)
+// SC = o(1)
 vector<int> closest3Sum(vector<int> nums, int target) {
-	int n=nums.size(), diff=INT_MAX, idx=-1, dp[n][n+1];
-	memset(dp, 0, sizeof dp);
-	
+	int n=nums.size(), diff=INT_MAX, idx=-1;
+
 	for (int i=0; i<n; i++) {
-		for (int j=0; j<n+1; j++) {
-			if (i==0 && j==0) continue;
-			else if (i==j) dp[i][j] = dp[i][j-1];
-			else if (j==0) dp[i][j] = nums[j]; 
-			else if (j<n) dp[i][j] = dp[i][j-1] + nums[j];
-			else {
-				dp[i][j] = abs(dp[i][j-1] - target);
-				if (dp[i][j] < diff) {
-					diff = dp[i][j];
-					idx = i;
-				}
-			}
+		int sum=0, absSum;
+		for (int j=0; j<n; j++)
+			if (i!=j) sum += nums[j];
+
+		absSum = abs(sum-target);
+		
+		if (absSum<diff) {
+			diff = absSum;
+			idx = i;
 		}
 	}
 
 	vector<int> ans;
-	for (int i=0; i<n; i++) {
-		if (idx != i != 0) ans.emplace_back(nums[i]);
-	}
+	for (int i=0; i<n; i++)
+		if (idx != i) ans.emplace_back(nums[i]);
 
 	return ans;
 }
