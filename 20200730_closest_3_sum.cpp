@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <algorithm>
 using namespace std;
 
 /*
@@ -23,26 +24,22 @@ print(closest_3sum([2, 1, -5, 4], -1))
 // TC = o(n^2)
 // SC = o(1)
 vector<int> closest3Sum(vector<int> nums, int target) {
-	int n=nums.size(), diff=INT_MAX, idx=-1;
-
-	for (int i=0; i<n; i++) {
-		int sum=0, absSum;
-		for (int j=0; j<n; j++)
-			if (i!=j) sum += nums[j];
-
-		absSum = abs(sum-target);
-		
-		if (absSum<diff) {
-			diff = absSum;
-			idx = i;
+	sort(nums.begin(), nums.end());
+	int a, b, c;
+	for (int i=0, diff=INT_MAX; i<nums.size() && diff != 0; i++) {
+		int lo=i+1, hi=nums.size()-1;
+		while (lo<hi) {
+			int currSum = nums[i]+nums[lo]+nums[hi];
+			if (abs(currSum-target) < diff) {
+				diff = abs(currSum-target);
+				a=nums[i], b=nums[lo], c=nums[hi];
+			}
+			if (currSum < target) lo++;
+			else hi--;
 		}
 	}
-
-	vector<int> ans;
-	for (int i=0; i<n; i++)
-		if (idx != i) ans.emplace_back(nums[i]);
-
-	return ans;
+	
+	return {a, b, c};
 }
 
 void print(vector<int> ans) {
@@ -56,10 +53,7 @@ void print(vector<int> ans) {
 
 int main(){
 	print(closest3Sum({2,1,-5,4},-1)); // [1, -5, 4]
-	print(closest3Sum({2,1,-5,4},-2)); // [2, 1, -5]
-	print(closest3Sum({2,1,-5,4},-3)); // [2, 1, -5]
-	print(closest3Sum({2,1,-5,4},1)); // [2, -5, 4]
-	print(closest3Sum({2,1,-5,4},7)); // [2, 1, 4]
-	print(closest3Sum({2,1,-5,4},10)); // [2, 1, 4]
+	print(closest3Sum({-1,2,1,-4},1)); // [-1, 2, 1]
+	print(closest3Sum({-1,2,1,-4,1,2,3},1)); // [-4,2,3]
 	return 0;
 }
