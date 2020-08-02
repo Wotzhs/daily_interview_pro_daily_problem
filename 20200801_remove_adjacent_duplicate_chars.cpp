@@ -22,6 +22,8 @@ print(remove_adjacent_dup("cabba"))
 
 */
 
+// TC - o(n)
+// SC - o(n)
 string removeAdjacentDup(string s) {
 	deque<char> dq;
 	for (char ch: s)
