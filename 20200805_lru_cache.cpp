@@ -94,8 +94,10 @@ public:
 			return;
 		}
 
+		// update and move key to head position if key already exists
 		if (mp.find(key) != mp.end()) {
 			mp[key]->value = value;
+			get(key);
 			return;
 		}
 
@@ -171,6 +173,21 @@ int main() {
 	cout << cache4.get(8) << "\n"; // 8
 	cache4.put(10, 12);
 	cout << cache4.get(2) << "\n"; // -1
+	cout << "\n";
+
+	cout << "cache5:\n";
+	LRUCache cache5(2);
+	cache5.put(2,2);
+	cout << cache5.get(2) << "\n"; // 2
+	cout << cache5.get(1) << "\n"; // -1
+	cache5.put(1,1);
+	cache5.put(2,10);
+	cache5.put(8,8);
+	cout << cache5.get(8) << "\n"; // 8
+	cout << cache5.get(2) << "\n"; // 10
+	cout << cache5.get(1) << "\n"; // -1
+	cache5.put(10, 12);
+	cout << cache5.get(2) << "\n"; // 10
 	cout << "\n";
 
 	return 0;
