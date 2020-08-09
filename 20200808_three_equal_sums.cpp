@@ -30,7 +30,6 @@ bool canThreePartsEqualSum2(vector<int> nums) {
 	for (int i=lo+1; i<=hi-1; i++) sumMid += nums[i];
 
 	while(sumLeft != sumRight || sumLeft == sumRight && sumLeft != sumMid) {
-		if (sumLeft == sumRight && sumLeft == sumMid) return true;
 		if (lo>hi) return false;
 		
 		if (sumLeft<sumRight) sumLeft += nums[++lo], sumMid -= nums[lo];
