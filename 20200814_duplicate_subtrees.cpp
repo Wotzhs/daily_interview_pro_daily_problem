@@ -1,9 +1,62 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <algorithm>
+#include <string>
+#include <unordered_map>
 using namespace std;
 
+/*
+
+This problem was recently asked by Uber:
+
+Given a binary tree, find all duplicate subtrees (subtrees with the same value and same structure) and return them as a list of list [subtree1, subtree2, ...] where subtree1 is a duplicate of subtree2 etc.
+
+Here's an example and some starter code:
+
+class Node:
+  def __init__(self, value, left=None, right=None):
+    self.value = value
+    self.left = left
+    self.right = right
+
+  def __repr__(self):
+    if self.left and self.right:
+      return f"({self.value}, {self.left}, {self.right})"
+    if self.left:
+      return f"({self.value}, {self.left})"
+    if self.right:
+      return f"({self.value}, None, {self.right})"
+    return f"({self.value})"
+
+def dup_trees(root):
+  # Fill this in.
+
+n3_1 = Node(3)
+n2_1 = Node(2, n3_1)
+n3_2 = Node(3)
+n2_2 = Node(2, n3_2)
+n1 = Node(1, n2_1, n2_2)
+# Looks like
+#     1
+#    / \
+#   2   2
+#  /   /
+# 3   3
+
+print(dup_trees(n1))
+# [[(3), (3)], [(2, (3)), (2, (3))]]
+# There are two duplicate trees
+#
+#     2
+#    /
+#   3
+# and just the leaf
+#
+# 3
+
+*/
+
+// TC - o(nm)
+// SC - o(nm)
 class Node {
 public:
 	int val;
@@ -13,48 +66,20 @@ public:
 	Node(int v, Node* l, Node* r): val(v), left(l), right(r) {};
 };
 
+int dfs(Node* node, unordered_map<string, vector<Node*>> &mp) {
+	if (!node) return 0;
+	string key = to_string(node->val)+to_string(dfs(node->left, mp))+to_string(dfs(node->right, mp));
+	mp[key].emplace_back(node);
+	return node->val;
+}
 
-typedef vector<Node*> vn;
-typedef vector<vector<Node*>> vvn;
+vector<vector<Node*>> dupTrees(Node* root) {
+	unordered_map<string, vector<Node*>> mp;
+	dfs(root, mp);
 
-vvn dupTrees(Node* root) {
-	vvn ans;
-	if (!root) return ans;
-	queue<Node*> q;
-	q.emplace(root);
-	while(q.size()) {
-		Node* prev = q.front();
-		q.pop();
-		vn tmp;
-
-		int n = q.size();
-		for (int i=0; i < n; i++) {
-			Node* curr = q.front();
-			q.pop();
-			if (
-				curr->val == prev->val 
-				&& (
-					curr->left == prev->left
-					|| (curr->left != nullptr && prev->left != nullptr && curr->left->val == prev->left->val)
-				)
-				&& (
-					curr->right == prev->right
-					|| (curr->right != nullptr && prev->right != nullptr && curr->right->val == prev->right->val)
-				)
-			) {
-				tmp.emplace_back(prev);
-				tmp.emplace_back(curr);
-			}
-			if (curr->left != nullptr) q.emplace(curr->left);
-			if (curr->right != nullptr) q.emplace(curr->right);
-		}
-			if (tmp.size()) ans.emplace_back(tmp);
-
-		if (prev->left != nullptr) q.emplace(prev->left);
-		if (prev->right != nullptr) q.emplace(prev->right);
-	}
-
-	reverse(ans.begin(), ans.end());
+	vector<vector<Node*>> ans;
+	for (auto it = mp.begin(); it != mp.end(); it++)
+		if (it->second.size()>1) ans.emplace_back(it->second);
 	return ans;
 }
 
@@ -72,7 +97,7 @@ void printTree(Node* root) {
 	cout << ")" ;
 }
 
-void print(vvn ans) {
+void print(vector<vector<Node*>> ans) {
 	cout << "[";
 	for (int i=0; i<ans.size(); i++) {
 		cout << "[";
@@ -100,11 +125,11 @@ int main() {
 	Node* n2_2 = new Node(2, n3_2, nullptr);
 	Node* n1 = new Node(1, n2_1, n2_2);
 
-	print(dupTrees(n1)); // [[(3), (3)], [(2, (3)), (2, (3))]]
+	print(dupTrees(n1)); // [[(2, (3)), (2, (3))], [3, 3]]
 
 	/*
-	         1
-	      /    \
+	        1
+	      /   \
 	     2     2
 	    / \   / \
 	   3   4 3   4
@@ -118,7 +143,7 @@ int main() {
 	Node* m2_2 = new Node(2, m3_2, m4_2);
 	Node* m1 = new Node(1, m2_1, m2_2);
 
-	print(dupTrees(m1)); // (2, (3), (4))(2, (3), (4))
+	print(dupTrees(m1)); // [(2, (3), (4)), (2, (3), (4)), [3, 3], [4, 4]]
 	
 	return 0;
 }
